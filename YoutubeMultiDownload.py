@@ -34,8 +34,7 @@ for line in links.readlines():
         try:
             ydl.download([link])
         except youtube_dl.utils.DownloadError as ex:
-            input("\nThis link does not work: " + f"{link}")
-            sys.exit(-1)
+            print("\nThis link does not work: " + f"{link}")
 
     video = None
 
@@ -46,14 +45,12 @@ for line in links.readlines():
             time_s = int(time_info[1])
             time = time_m * 60 + time_s
         except:
-            print("\nCould not read the given timestamps\nbe sure to write them correctly in the links.txt file\n")
-            sys.exit(-1)
+            input("\nCould not read the given timestamps\nbe sure to write them correctly in the links.txt file\n")
         # Measured in seconds
         time_d = 4.25  # Time delta (time between timestamp and end of clip)
         time_b = 2  # Time buffer (time between beginning of clip and timestamp)
 
         try:
-            print(time_m, time_s)
             i = 0
             for vid in os.listdir():
                 if vid.endswith(f"{link[-5:]}.mp4"):
@@ -65,20 +62,21 @@ for line in links.readlines():
                 elif vid.endswith(f"{link[-5:]}.mkv"):
                     while f"00{link[-8:]}{i}.mkv" in os.listdir():
                         i += 1
-                        print(os.listdir())
                     ffmpeg_extract_subclip(f"{vid}", time - time_b,
                                            time + time_d, targetname=f"00{link[-8:]}{i}.mkv")
                     video = vid
         except IOError as ex:
-            input("\nCould not run! There was a video with the same filename '" + f"{link[-5:]}.mp4" + "' inside this "
+            print("\nCould not run! There was a video with the same filename '" + f"{link[-5:]}.mp4" + "' inside this "
                                                                                                        "folder\nPress "
                                                                                                        "any key to "
                                                                                                        "exit")
-            sys.exit(-1)
         except:
             input("\nSomething went wrong\nCould not cut video")
             sys.exit(-1)
-    os.remove(f"{video}")
+    try:
+        os.remove(f"{video}")
+    except:
+        pass
 
 links.close()
 input("\nDone!")
