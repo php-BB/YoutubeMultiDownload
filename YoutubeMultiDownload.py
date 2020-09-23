@@ -27,6 +27,8 @@ except FileNotFoundError as e:
 for line in links.readlines():
     info = line.split(" ")
     link = info[0]
+    
+    ydl_opts = {"outtmpl": f"{link[-5:]}.mp4"}  # Fix file extension not being appended
 
     with youtube_dl.YoutubeDL(ydl_opts) as ydl:
         try:
@@ -47,8 +49,6 @@ for line in links.readlines():
         # Measured in seconds
         time_d = 4.25  # Time delta (time between timestamp and end of clip)
         time_b = 2  # Time buffer (time between beginning of clip and timestamp)
-
-        ydl_opts = {"outtmpl": f"{link[-5:]}.mp4"}  # Fix file extension not being appended
 
         try:
             print(time_m, time_s)
