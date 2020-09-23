@@ -27,7 +27,7 @@ except FileNotFoundError as e:
 for line in links.readlines():
     info = line.split(" ")
     link = info[0]
-    
+
     ydl_opts = {"outtmpl": f"{link[-5:]}.mp4"}  # Fix file extension not being appended
 
     with youtube_dl.YoutubeDL(ydl_opts) as ydl:
@@ -36,6 +36,8 @@ for line in links.readlines():
         except youtube_dl.utils.DownloadError as ex:
             input("\nThis link does not work: " + f"{link}")
             sys.exit(-1)
+
+    video = None
 
     for timestamp in info[1:]:
         try:
@@ -59,14 +61,14 @@ for line in links.readlines():
                         i += 1
                     ffmpeg_extract_subclip(f"{vid}", time - time_b,
                                            time + time_d, targetname=f"00{link[-8:]}{i}.mp4")
-                    os.remove(f"{vid}")
+                    video = vid
                 elif vid.endswith(f"{link[-5:]}.mkv"):
                     while f"00{link[-8:]}{i}.mkv" in os.listdir():
                         i += 1
                         print(os.listdir())
                     ffmpeg_extract_subclip(f"{vid}", time - time_b,
                                            time + time_d, targetname=f"00{link[-8:]}{i}.mkv")
-                    os.remove(f"{vid}")
+                    video = vid
         except IOError as ex:
             input("\nCould not run! There was a video with the same filename '" + f"{link[-5:]}.mp4" + "' inside this "
                                                                                                        "folder\nPress "
@@ -76,6 +78,7 @@ for line in links.readlines():
         except:
             input("\nSomething went wrong\nCould not cut video")
             sys.exit(-1)
+    os.remove(f"{video}")
 
 links.close()
 input("\nDone!")
