@@ -11,17 +11,15 @@ Create a folder anywhere you like and place the .py file in it and and create a 
 Execution
 Paste multiple links together with timestamps (separated by a space) in the links.txt file. Place every single new video in a new line like this:
 
-https://youtube.com/… 3:40 
+https://youtube.com/… 3:40
 
-https://youtube.com/… 5:28
+https://youtube.com/… 5:28 4:12 2:43
 
 https://youtube.com/… 0:45
 
-https://youtube.com/… 18:37
+https://youtube.com/… 0:05 18:37
 
 …
-
-It is important to list only one timestamp per video, so if you want multiple clips out of one YouTube video, you have to paste the link multiple times with different timestamps. If you’re done, save the file and close it.
 
 Now execute the .py file and it will download the videos and cut out everything, so you end with a clip around the given timestamp. It will save these clips with the last characters from the link and the file extension (this is sometimes .mp4 and sometimes .mkv but both are very supported file types), with two “0” at the beginning, so it lists them at the top of the folder.
 
