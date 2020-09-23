@@ -11,7 +11,7 @@ Create a folder anywhere you like and place the .py file in it and and create a 
 Execution
 Paste multiple links together with timestamps (separated by a space) in the links.txt file. Place every single new video in a new line like this:
 
-https://youtube.com/… 3:40
+https://youtube.com/… 3:40 \n
 https://youtube.com/… 5:28
 https://youtube.com/… 0:45
 https://youtube.com/… 18:37
